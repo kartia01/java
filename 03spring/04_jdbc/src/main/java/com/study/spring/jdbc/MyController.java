@@ -21,7 +21,7 @@ public class MyController {
 	
 	@GetMapping("/list")
 	public String index(Model model) {
-		
+//						↑약한 결합  강한결합 : new를 사용
 		model.addAttribute("lists",myDao.list());
 		return "index";
 	}
