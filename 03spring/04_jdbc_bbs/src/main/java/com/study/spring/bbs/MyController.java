@@ -4,12 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
+@Slf4j
 public class MyController {
 	
 	@Autowired
@@ -43,6 +46,33 @@ public class MyController {
 		String num = request.getParameter("id");
 		model.addAttribute("dataView",dao.viewDAO(num));
 		return "view";
+	}
+	
+	// 글 작성 form
+	@RequestMapping("/writeForm")
+	public String writeForm() {
+		return "writeForm";
+	}
+	
+	// 글 작성 action write?name = &title = &content
+	@RequestMapping("/write")
+	public String write(HttpServletRequest request) {
+//		request.getParameter("writer");
+		
+		dao.writeDAO(
+				request.getParameter("writer"),
+				request.getParameter("title"),
+				request.getParameter("content")
+				);
+		
+		return "redirect:list";
+	}
+	
+	@RequestMapping("/delete")
+	public String delete(HttpServletRequest request) {
+		int deleteNum = dao.deleteDAO(request.getParameter("id"));
+		log.info("delete : " + deleteNum);
+		return "redirect:list";
 	}
 }
 
