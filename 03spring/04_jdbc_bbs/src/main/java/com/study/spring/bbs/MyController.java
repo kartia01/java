@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MyController {
 	
+//	컨트롤러는 DAO를 자동으로 받아 사용한다.
 	@Autowired
 	IBbsDAO dao;
 
@@ -24,11 +25,14 @@ public class MyController {
 //		return "redirect : index";
 //	}
 	
+//  첫 페이지를 보여주는 메서드
 	@RequestMapping("/")
 	public String index() {
 		return "index";
 	}
 	
+//	사용자가 /list 주소로 get 방식 요청ㅇ르 보냈을 때 실행됨
+//	DB에서 모든 게시글 목록을 조회해서 리스트 페이지에 전달
 	@GetMapping("/list")
 	public String list(Model model) {
 		model.addAttribute("lists", dao.listDAO());
@@ -36,6 +40,7 @@ public class MyController {
 		return "list";
 	}
 	
+		
 	// localhost:8080/view?id=1
 	@RequestMapping("/view")
 	public String view(
@@ -47,6 +52,9 @@ public class MyController {
 		model.addAttribute("dataView",dao.viewDAO(num));
 		return "view";
 	}
+	
+//  HttpServletrequest : 클라이언트가 서버로 보낸 요청 정보를 모두 담고 있는 객체
+//	getParameter() : HttpServletRequest 안에 있는 name, value 값을 꺼내는 메서드
 	
 	// 글 작성 form
 	@RequestMapping("/writeForm")
