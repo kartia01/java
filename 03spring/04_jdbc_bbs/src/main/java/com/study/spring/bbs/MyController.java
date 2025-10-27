@@ -31,7 +31,7 @@ public class MyController {
 		return "index";
 	}
 	
-//	사용자가 /list 주소로 get 방식 요청ㅇ르 보냈을 때 실행됨
+//	사용자가 /list 주소로 get 방식 요청을 보냈을 때 실행됨
 //	DB에서 모든 게시글 목록을 조회해서 리스트 페이지에 전달
 	@GetMapping("/list")
 	public String list(Model model) {
