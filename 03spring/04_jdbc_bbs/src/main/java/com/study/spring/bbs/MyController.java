@@ -27,6 +27,7 @@ public class MyController {
 	
 //  첫 페이지를 보여주는 메서드
 	@RequestMapping("/")
+	@ResponseBody
 	public String index() {
 		return "index";
 	}
