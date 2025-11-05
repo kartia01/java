@@ -19,7 +19,7 @@ public interface IStoreDao {
 	List<MenuDto> findMenuAll();
 
 	@Select("select * from store where id=#{id}")
-	StoreDto storeView(long id);
+	StoreDto storeView(Long id);
 
 	@Insert("insert into store(name,addr) values(#{name},#{addr})")
 	void createStore(StoreDto request);
