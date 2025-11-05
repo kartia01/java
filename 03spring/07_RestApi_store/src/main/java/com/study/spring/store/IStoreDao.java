@@ -23,9 +23,9 @@ public interface IStoreDao {
 
 	@Insert("insert into store(name,addr) values(#{name},#{addr})")
 	void createStore(StoreDto request);
-
-	@Insert("insert into menu(name, price) values(#{name}, #{price})")
-	void createMenu(MenuDto req);
+//
+//	@Insert("insert into menu(name, price) values(#{name}, #{price})")
+//	void createMenu(MenuDto req);
 
 	@Select("select * from menu where id=#{id}")
 	MenuDto menuView(long id);

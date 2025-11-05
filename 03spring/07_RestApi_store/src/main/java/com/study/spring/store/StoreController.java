@@ -31,19 +31,17 @@ public class StoreController {
 
 	// /api/store/view?id=1
 	@GetMapping("/api/store/view")
-	public StoreDto viewStore(@RequestParam("id") long id) {
-		log.info("view : " + id);
+	public StoreDto viewStore(@RequestParam("id") Long id) {
+		log.info("view id : " + id);
 		return dao.storeView(id);
 	}
-	
+
 //	{
 //	    "name" : "우리집",
 //	    "addr" : "마포"
 //	}
 	@PostMapping("/api/store")
-	public void createStore(
-			@RequestBody StoreDto request
-			) {
+	public void createStore(@RequestBody StoreDto request) {
 		log.info("post : name - " + request.name + ", addr - " + request.addr);
 		dao.createStore(request);
 	}
@@ -52,7 +50,7 @@ public class StoreController {
 	public List<MenuDto> listMenu() {
 		return dao.findMenuAll();
 	}
-//	
+
 //	@PostMapping("/api/menu")
 //	public void createMenu(
 //			@RequestBody MenuDto req
@@ -61,24 +59,22 @@ public class StoreController {
 //		dao.createMenu(req);
 //	}
 //	
-//	// /api/menu/view?id=1
-//	@GetMapping("/api/menu/view")
-//	public MenuDto viewMenu(@RequestParam("id") long id) {
-//		log.info("view : " + id);
-//		return dao.menuView(id);
-//	}
-	
-	//~/api/menuStore?storeId=
+//	 /api/menu/view?id=1
+	@GetMapping("/api/menu/view")
+	public MenuDto viewMenu(@RequestParam("id") Long id) {
+		log.info("view : " + id);
+		return dao.menuView(id);
+	}
+
+	// ~/api/menuStore?storeId=
 	@GetMapping("/api/menuStore")
-	public List<MenuDto> menuStoreView(
-			@RequestParam("store_id") long store_id
-			){
+	public List<MenuDto> menuStoreView(@RequestParam("storeId") long store_id) {
 		return dao.findMenuByStoreId(store_id);
 	}
-	
+
 	@GetMapping("/api/storeMenu")
-	public List<StoreMenuDto> storeMenuList(){
+	public List<StoreMenuDto> storeMenuList() {
 		return dao.storeAndMenuAll();
 	}
-	
+
 }

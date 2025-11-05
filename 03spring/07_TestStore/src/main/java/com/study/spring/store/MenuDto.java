@@ -7,5 +7,5 @@ public class MenuDto {
 	Long id;
 	String name;
 	int price;
-	long store_id;
+	Long store_id;
 }

@@ -3,9 +3,8 @@ package com.study.spring.store;
 import lombok.Data;
 
 @Data
-public class MenuDto {
+public class StoreDto {
 	Long id;
 	String name;
-	int price;
-	long store_id;
+	String addr;
 }
