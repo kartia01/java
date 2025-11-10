@@ -15,11 +15,12 @@ public interface IStoreDao {
 	List<MenuDto> findMenuAll();
 
 	@Select("select * from store where id=#{id}")
-	StoreDto storeview(int id);
+	StoreDto storeview(Long id);
 
 	@Select("select * from menu where id=#{id}")
-	MenuDto menuview(int id);
+	MenuDto menuview(Long id);
 
 	@Select("insert into store(name,addr) values(#{name},#{addr})")
 	void createStore(StoreDto request);
+
 }
