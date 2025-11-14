@@ -10,5 +10,4 @@ public class TestDto {
 	public String content;
 	public String name;
 	public MultipartFile fileUpload;
-//	public MultipartFile files; <- postman body에서도 files로 사용
 }

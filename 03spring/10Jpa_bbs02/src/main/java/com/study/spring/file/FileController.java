@@ -10,37 +10,40 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
 public class FileController {
-
+	
 	@Autowired
 	FileService fileservice;
 
 	@Value("${file.upload-dir}")
 	private String uploadDir;
 
-	// postmain form-date / @ModelAttribute 자료전송 (이유 : 이미지 파일)
 	@PostMapping("/api/upload")
-	public ResponseEntity<String> testfileUpload(@ModelAttribute TestDto req)
-			throws IllegalStateException, IOException {
+	public ResponseEntity<?> testFileUpload(@ModelAttribute TestDto req) throws IllegalStateException, IOException {
 
-		fileservice.filecreate(req);
-
+		fileservice.fileCreate(req);
 		return ResponseEntity.ok("SUCCESS");
 	}
 
 	@GetMapping("/api/image/{filename}")
-	public ResponseEntity<Object> getImage(@PathVariable("filename") String filename) throws IOException {
-		File file = new File(uploadDir + "/" + filename); // C:/upload/filename
+	public ResponseEntity<?> getImage(@PathVariable("filename") String filename) throws IOException {
+		File file = new File(uploadDir + "/" + filename);
 
 		if (!file.exists()) {
+			log.info("파일없음");
 			return ResponseEntity.notFound().build();
 		}
+		log.info("파일있음");
 
 		Resource resource = new FileSystemResource(file);
 
