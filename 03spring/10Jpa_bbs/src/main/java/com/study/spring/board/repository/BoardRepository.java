@@ -5,13 +5,16 @@ import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.study.spring.board.dto.BoardListDto;
+import com.study.spring.board.dto.BoardListMemberDto;
 import com.study.spring.board.entity.Board;
+
 
 @Repository
 public interface BoardRepository extends JpaRepository<Board, Long> {
@@ -22,7 +25,7 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
 			order by
 			b.id desc
 			""")
-	List<Board> findAllOrderByDesc();
+	List<Board> findAllOrderByIdDesc();
 
 	@Query("""
 			select new com.study.spring.board.dto.BoardListDto(
@@ -41,4 +44,33 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
 
 	@Query("select b from Board b order by b.id desc")
 	Page<Board> findAllWithPage(Pageable pageable);
+	
+	@Query("""
+			select new com.study.spring.board.dto.BoardListMemberDto(
+			b.id,
+			b.title,
+			b.content,
+			m.name,
+			m.email,
+			b.createdAt
+			)
+			from Board b
+			join b.member m
+			order by b.id desc
+			""")
+	List<BoardListMemberDto> findwithMemberById();
+
+//	@Query("""
+//			select distinct b
+//			from Board b
+//			left join fetch b.images i
+//			join fetch b.member m
+//			order by b.id desc
+//			""")
+//	List<Board> findWithImage();
+	
+	@EntityGraph(attributePaths = "images")
+	@Query("select b from Board b order by b.id desc")
+	List<Board> findWithImage();
+
 }

@@ -19,7 +19,7 @@ public class BoardService {
 	BoardRepository boardRepository;
 
 	public List<Board> getBoardList() {
-		return boardRepository.findAllOrderByDesc();
+		return boardRepository.findAllOrderByIdDesc();
 	}
 
 	public List<BoardListDto> getBoardDto() {
@@ -27,7 +27,8 @@ public class BoardService {
 	}
 
 	public Board getBoard(Long id) {
-		return boardRepository.findBoard(id).orElseThrow(() -> new RuntimeException("게시글이 없네요"));
+		return boardRepository.findBoard(id).orElseThrow(
+				() -> new RuntimeException("게시글이 없네요"));
 	}
 
 	public Page<Board> getBoardPageList(int page, int size) {
