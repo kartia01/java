@@ -28,7 +28,8 @@ public class BoardService {
 
 	public Board getBoard(Long id) {
 		return boardRepository.findBoard(id).orElseThrow(
-				() -> new RuntimeException("게시글이 없네요"));
+				() -> new RuntimeException("게시글이 없네요")
+				);
 	}
 
 	public Page<Board> getBoardPageList(int page, int size) {

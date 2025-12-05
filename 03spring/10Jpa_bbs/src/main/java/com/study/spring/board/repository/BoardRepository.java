@@ -15,7 +15,6 @@ import com.study.spring.board.dto.BoardListDto;
 import com.study.spring.board.dto.BoardListMemberDto;
 import com.study.spring.board.entity.Board;
 
-
 @Repository
 public interface BoardRepository extends JpaRepository<Board, Long> {
 //	query의 Board는 class
@@ -44,7 +43,7 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
 
 	@Query("select b from Board b order by b.id desc")
 	Page<Board> findAllWithPage(Pageable pageable);
-	
+
 	@Query("""
 			select new com.study.spring.board.dto.BoardListMemberDto(
 			b.id,
@@ -68,9 +67,25 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
 //			order by b.id desc
 //			""")
 //	List<Board> findWithImage();
-	
+
 	@EntityGraph(attributePaths = "images")
 	@Query("select b from Board b order by b.id desc")
 	List<Board> findWithImage();
+
+	@Query("""
+			select distinct b
+			from Board b
+			left join fetch b.images
+			join fetch b.member
+			order by b.id desc
+			""")
+	Page<Board> findwithImagePage(Pageable pageable);
+
+	@Query("""
+			select b from Board b
+			left join fetch b.images
+			where b.id = :id
+			""")
+	Board findwithImagebyId(@Param("id") Long id);
 
 }

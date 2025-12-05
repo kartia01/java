@@ -7,6 +7,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.study.spring.member.entity.Member;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -31,8 +32,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 public class Board {
-
-	@Id
+	
+	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
@@ -48,9 +49,9 @@ public class Board {
 	@OneToMany(mappedBy = "board",fetch = FetchType.EAGER)
 	private List<Image> images = new ArrayList<>();
 	
+	
 	@PrePersist
 	public void onCreate() {
 		this.createdAt = LocalDateTime.now();
 	}
-	
 }
