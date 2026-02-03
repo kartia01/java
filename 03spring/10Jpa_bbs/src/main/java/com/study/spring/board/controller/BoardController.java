@@ -22,7 +22,7 @@ import com.study.spring.board.repository.BoardRepository;
 import com.study.spring.board.service.BoardListService;
 import com.study.spring.board.service.BoardService;
 
-@RestController
+@RestController 
 public class BoardController {
 
 //	@Autowired

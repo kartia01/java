@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.study.spring.hospital.dto.H_ReviewAppmDto;
 import com.study.spring.hospital.dto.H_ReviewCommentDto;
+import com.study.spring.hospital.dto.H_ReviewListDto;
 import com.study.spring.hospital.dto.HospitalDto;
 import com.study.spring.hospital.entity.H_review;
 //import com.study.spring.hospital.dto.H_ReviewListDto;
@@ -140,7 +141,13 @@ public interface HospitalRepository extends JpaRepository<Hospital, String> {
 			order by u.id desc
 			""")
 	List<User> findLikeWithUser();
-	
-//	reviewList
+
+	// reviewList
+	@Query("""
+			select r.r_title, r.r_content, r.r_eval_pt, h.h_code
+			from h_review r
+			join hospital h on r.h_code = h.h_code
+					""")
+	List<H_ReviewListDto> findAllListreview();
 
 }

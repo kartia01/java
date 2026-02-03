@@ -59,15 +59,6 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
 			""")
 	List<BoardListMemberDto> findwithMemberById();
 
-//	@Query("""
-//			select distinct b
-//			from Board b
-//			left join fetch b.images i
-//			join fetch b.member m
-//			order by b.id desc
-//			""")
-//	List<Board> findWithImage();
-
 	@EntityGraph(attributePaths = "images")
 	@Query("select b from Board b order by b.id desc")
 	List<Board> findWithImage();

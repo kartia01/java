@@ -26,13 +26,14 @@ public class BbsController {
 	public String root() {
 		return "hi";
 	}
-
+	
 //	// 전체데이터
 //	@GetMapping("/api/bbs")
 //	public List<Bbs> bbsList() {
 ////		return bbsRepository.findAll(Sort.by(Sort.Direction.DESC,"id"));
 //		return bbsRepository.findAllByOrderByIdDesc();
 //	}
+
 
 	// 페이지네이션
 	@GetMapping("/api/bbs")

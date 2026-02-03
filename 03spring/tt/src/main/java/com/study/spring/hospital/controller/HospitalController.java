@@ -51,14 +51,18 @@ public class HospitalController {
 		List<Hospital> hospitals = hRepo.findWithReview();
 		
 		return hospitals.stream()
+		// stream() : 순서대로 하나씩 처리
 				.map(h->H_ReviewListDto
+				// entity : hospital를 H_ReviewListDto로 변환
 						.builder()
 						.h_code(h.getH_code())
 						.h_name(h.getH_name())
 						.createdAt(h.getCreatedAt())
 						.reviewCount(h.getReviews().size())
+						// size() : 리스트 안에 리뷰가 몇 개 들어있는지 숫자를 반환
 						.reviews(h.getReviews().stream()
 								.map(review-> new ReviewDto(
+								// entity : H-review를 ReviewDto로 변환
 										review.getR_id(), 
 										review.getR_title(), 
 										review.getR_content(), 
@@ -227,5 +231,11 @@ public class HospitalController {
 								.toList())
 						.build())
 				.toList();
+	}
+	
+	// reviewlist
+	@GetMapping("/api/listreview")
+	public List<H_ReviewListDto> getListReview(){
+		return hRepo.findAllListreview();
 	}
 }
