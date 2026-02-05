@@ -9,6 +9,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.study.spring.security.handler.ApiLoginFailHandler;
+import com.study.spring.security.handler.ApiLoginSuccessHandler;
+
 import lombok.extern.log4j.Log4j2;
 
 @Configuration
@@ -30,6 +33,8 @@ public class CustomSecurityConfig {
 		http.sessionManagement(sessionConfig ->  sessionConfig.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 		http.formLogin(config -> {
 		      config.loginPage("/api/member/login");
+		      config.successHandler(new ApiLoginSuccessHandler());
+		      config.failureHandler(new ApiLoginFailHandler());
 
 		    });
 		
