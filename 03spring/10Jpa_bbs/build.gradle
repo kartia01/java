@@ -34,6 +34,8 @@ dependencies {
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	implementation 'org.slf4j:slf4j-api'
+    implementation 'ch.qos.logback:logback-classic'
 	
 	implementation 'net.coobird:thumbnailator:0.4.8'
 }

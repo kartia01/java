@@ -1,22 +1,19 @@
 package com.study.spring.hospital.repository;
 
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.query.Param;
 
-import com.study.spring.hospital.dto.MyCommentDto;
-import com.study.spring.hospital.entity.H_comment;
+import com.study.spring.hospital.entity.H_review;
 
-@Repository
-public interface CommentRepository extends JpaRepository<H_comment, Integer> {
+public interface CommentRepository extends JpaRepository<H_review, Integer> {
 
-	@Query("""
-			select c.c_content, c.created_at, u.name, u.id, c.created_at, r_id, c.c_id
-			from h_comment c
-			join h_user u on c.h_user_id = u.id
-			join h_review r on c.h_user_id = r.h_user_id
-			""")
-	List<MyCommentDto> findAllCommentByIdDesc();
+    @Query("""
+        select r
+        from H_review r
+        LEFT JOIN FETCH r.comments c
+        LEFT JOIN FETCH c.h_user u
+        where r.r_id = :reviewId
+    """)
+    H_review findcommentwithComments(@Param("reviewId") int reviewId);
 }
