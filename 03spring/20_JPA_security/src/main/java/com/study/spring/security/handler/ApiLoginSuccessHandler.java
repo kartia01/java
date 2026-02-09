@@ -31,8 +31,22 @@ public class ApiLoginSuccessHandler implements AuthenticationSuccessHandler{
 		
 		Map<String, Object> claims = memberDto.getClaims();
 		
-		claims.put("accessToken", JWTUtil.generateToken(claims, 10));
-		claims.put("refreshToken", JWTUtil.generateToken(claims, 60*24));
+//		claims.put("accessToken", JWTUtil.generateToken(claims, 10));
+//		claims.put("refreshToken", JWTUtil.generateToken(claims, 60*24));
+		
+		String accessToken = JWTUtil.generateToken(claims, 10); 
+		String refreshToken = JWTUtil.generateToken(claims, 60*24);
+		
+		jakarta.servlet.http.Cookie refreshTokenCookie =
+				new jakarta.servlet.http.Cookie("refreshToken", refreshToken);
+
+		refreshTokenCookie.setHttpOnly(true);
+		refreshTokenCookie.setPath("/");
+		refreshTokenCookie.setMaxAge(60*60*24);
+		refreshTokenCookie.setAttribute("SameSite", "Lax"); // SameSite = Strict, Lax, None
+		response.addCookie(refreshTokenCookie);
+		
+		claims.put("accessToken", accessToken);
 		
 		Gson gson = new Gson();
 		
